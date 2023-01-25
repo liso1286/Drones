@@ -10,28 +10,49 @@ namespace Drones.Entities
         [NotNull]
         public string SerialNumber { get; set; }
         [NotNull]
-        public string Model { get; set; }
+        public ModelType Model { get; set; }
         [NotNull]
         public decimal WeightLimit { get; set; }
         [NotNull]
         public decimal BatteryCapacity { get; set; }
         [NotNull]
-        public string State { get; set; }
+        public StateLevel State { get; set; }
         public IEnumerable<Medication> Medications { get; set; }
 
         public Drone(
+            int id,
             string serialNumber,
-            string model,
+            ModelType model,
             decimal weightLimit,
             decimal batteryCapacity,
-            string state)
+            StateLevel state)
         {
+            Id = id;
             SerialNumber = serialNumber;
             Model = model;
             WeightLimit = weightLimit;
             BatteryCapacity = batteryCapacity;
             State = state;
             Medications = new List<Medication>();
+        }
+
+
+        public enum StateLevel
+        {
+            Idle = 1,
+            Loading = 2,
+            Loaded = 3,
+            Delivering = 4,
+            Delivered = 5,
+            Returning = 6
+        }
+
+        public enum ModelType
+        {
+            Lightweight = 1,
+            Middleweight = 2,
+            Cruiserweight = 3,
+            Heavyweight = 4
         }
     }
 }
