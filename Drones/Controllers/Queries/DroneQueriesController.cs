@@ -20,7 +20,7 @@ namespace Drones.Controllers.Queries
         }
 
         [HttpGet("CheckMedicationByDrone")]
-        [ProducesResponseType(typeof(CheckMedicationByDroneResponse), (int)System.Net.HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<MedicationResponse>), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> CheckMedicationByDrone([FromQuery] CheckMedicationByDroneRequest request)
         {
             var respuesta = await _mediator.Send(request);
@@ -28,7 +28,7 @@ namespace Drones.Controllers.Queries
         }
 
         [HttpGet("CheckAvailablesDronesForLoading")]
-        [ProducesResponseType(typeof(CheckAvailablesDronesForLoadingResponse), (int)System.Net.HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IEnumerable<DroneResponse>), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> CheckAvailablesDronesForLoading([FromQuery] CheckAvailablesDronesForLoadingRequest request)
         {
             var respuesta = await _mediator.Send(request);

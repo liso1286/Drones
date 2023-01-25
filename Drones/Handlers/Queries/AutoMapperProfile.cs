@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Drones.Dtos.Queries;
+using Drones.Entities;
 
 namespace Drones.Handlers.Queries
 {
@@ -6,6 +8,9 @@ namespace Drones.Handlers.Queries
     {
         public AutoMapperProfile()
         {
+            CreateMap<Drone, DroneResponse>();
+            CreateMap<Drone, CheckBatteryLevelForDroneResponse>();
+            CreateMap<Medication, MedicationResponse>();
         }
     }
 }

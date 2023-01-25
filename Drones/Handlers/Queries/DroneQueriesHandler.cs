@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Drones.Dtos.Queries;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Drones.Handlers.Queries
 {
-    public class DroneQueriesHandler:
-        IRequestHandler<CheckMedicationByDroneRequest, CheckMedicationByDroneResponse>,
-        IRequestHandler<CheckAvailablesDronesForLoadingRequest, CheckAvailablesDronesForLoadingResponse>,
+    public class DroneQueriesHandler :
+        IRequestHandler<CheckMedicationByDroneRequest, IEnumerable<MedicationResponse>>,
+        IRequestHandler<CheckAvailablesDronesForLoadingRequest, IEnumerable<DroneResponse>>,
         IRequestHandler<CheckBatteryLevelForDroneRequest, CheckBatteryLevelForDroneResponse>
 
     {
@@ -19,19 +20,49 @@ namespace Drones.Handlers.Queries
             _context = context;
         }
 
-        public Task<CheckMedicationByDroneResponse> Handle(CheckMedicationByDroneRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<MedicationResponse>> Handle(CheckMedicationByDroneRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var drone =
+                await
+                _context
+                .Drones
+                .FirstOrDefaultAsync(x => x.SerialNumber.Equals(request.SerialNumber));
+
+            if (drone is null)
+                throw new ArgumentException(
+                    "There is no registered drone with the provided serial number");
+
+            return _mapper.Map<IEnumerable<MedicationResponse>>(drone.Medications);
         }
 
-        public Task<CheckAvailablesDronesForLoadingResponse> Handle(CheckAvailablesDronesForLoadingRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DroneResponse>> Handle(CheckAvailablesDronesForLoadingRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            decimal minBatteryCapacity = 0.25M;
+            var availableDrones =
+                await
+                _context
+                .Drones
+                .Where(x => x.Medications.Sum(y => y.Weight) < x.WeightLimit &&
+                            x.BatteryCapacity >= minBatteryCapacity)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<DroneResponse>>(availableDrones);
         }
 
-        public Task<CheckBatteryLevelForDroneResponse> Handle(CheckBatteryLevelForDroneRequest request, CancellationToken cancellationToken)
+        public async Task<CheckBatteryLevelForDroneResponse> Handle(CheckBatteryLevelForDroneRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var drone =
+                await
+                _context
+                .Drones
+                .FirstOrDefaultAsync(x => x.SerialNumber.Equals(request.SerialNumber));
+
+            if (drone is null)
+                throw new ArgumentException(
+                    "There is no registered drone with the provided serial number");
+
+            return _mapper.Map<CheckBatteryLevelForDroneResponse>(drone);
         }
+
     }
 }

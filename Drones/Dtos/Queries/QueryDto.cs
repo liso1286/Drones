@@ -1,22 +1,34 @@
 ﻿using Drones.Entities;
 using MediatR;
+using System.Diagnostics.CodeAnalysis;
+using static Drones.Entities.Drone;
 
 namespace Drones.Dtos.Queries
 {
     public record CheckMedicationByDroneRequest(string SerialNumber) :
-        IRequest<CheckMedicationByDroneResponse>;
+        IRequest<IEnumerable<MedicationResponse>>;
 
-    public class CheckMedicationByDroneResponse
+
+    public class MedicationResponse
     {
-        public IEnumerable<Medication> Medications { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Weight { get; set; }
+        public string Code { get; set; }
+        public byte[] Image { get; set; }
     }
 
     public record CheckAvailablesDronesForLoadingRequest() :
-        IRequest<CheckAvailablesDronesForLoadingResponse>;
+        IRequest<IEnumerable<DroneResponse>>;
 
-    public class CheckAvailablesDronesForLoadingResponse
+    public class DroneResponse
     {
-        public IEnumerable<Drone> AvailableDrones { get; set; }
+        public int Id { get; set; }
+        public string SerialNumber { get; set; }
+        public ModelType Model { get; set; }
+        public decimal WeightLimit { get; set; }
+        public decimal BatteryCapacity { get; set; }
+        public StateLevel State { get; set; }
     }
 
     public record CheckBatteryLevelForDroneRequest(string SerialNumber) :
@@ -24,6 +36,6 @@ namespace Drones.Dtos.Queries
 
     public class CheckBatteryLevelForDroneResponse
     {
-        public decimal BatteryLevel { get; set; }
+        public decimal BatteryCapacity { get; set; }
     }
 }
