@@ -2,6 +2,7 @@
 using Drones.Dtos.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using static Drones.Entities.Drone;
 
 namespace Drones.Handlers.Queries
 {
@@ -42,7 +43,8 @@ namespace Drones.Handlers.Queries
                 await
                 _context
                 .Drones
-                .Where(x => x.Medications.Sum(y => y.Weight) < x.WeightLimit &&
+                .Where(x => x.State != StateLevel.Idle && 
+                            x.Medications.Sum(y => y.Weight) < x.WeightLimit &&
                             x.BatteryCapacity >= minBatteryCapacity)
                 .ToListAsync();
 
