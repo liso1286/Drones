@@ -7,7 +7,7 @@ namespace Drones.Handlers.Queries
     public class DroneQueriesHandler:
         IRequestHandler<CheckMedicationByDroneRequest, CheckMedicationByDroneResponse>,
         IRequestHandler<CheckAvailablesDronesForLoadingRequest, CheckAvailablesDronesForLoadingResponse>,
-        IRequestHandler<CheckBatteryLevelForDroneRequest, CheckBatteryLevelForDroneResponse>,
+        IRequestHandler<CheckBatteryLevelForDroneRequest, CheckBatteryLevelForDroneResponse>
 
     {
         private readonly IMapper _mapper;
