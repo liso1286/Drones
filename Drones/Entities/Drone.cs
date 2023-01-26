@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Drones.Entities
@@ -17,25 +18,15 @@ namespace Drones.Entities
         public decimal BatteryCapacity { get; set; }
         [NotNull]
         public StateLevel State { get; set; }
-        public IEnumerable<Medication> Medications { get; set; }
+        [InverseProperty("Drone")]
+        public virtual ICollection<Medication> Medications { get; set; }
 
-        public Drone(
-            int id,
-            string serialNumber,
-            ModelType model,
-            decimal weightLimit,
-            decimal batteryCapacity,
-            StateLevel state)
+        public Drone()
         {
-            Id = id;
-            SerialNumber = serialNumber;
-            Model = model;
-            WeightLimit = weightLimit;
-            BatteryCapacity = batteryCapacity;
-            State = state;
+            BatteryCapacity = 100.00M;
+            State = StateLevel.Idle;
             Medications = new List<Medication>();
         }
-
 
         public enum StateLevel
         {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Drones.Entities
@@ -16,11 +17,20 @@ namespace Drones.Entities
         [NotNull]
         public byte[] Image { get; set; }
 
-        public Medication(string name, decimal weight, string code)
+        [ForeignKey("Drone")]
+        public int DroneId { get; set; }
+        public virtual Drone Drone { get; set; }
+
+        private Medication()
         {
+                
+        }
+      
+        public Medication(string code, string name, decimal weight)
+        {
+            Code = code;
             Name = name;
             Weight = weight;
-            Code = code;
             Image = Array.Empty<byte>();
         }
     }

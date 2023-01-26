@@ -27,13 +27,14 @@ namespace Drones.Handlers.Queries
                 await
                 _context
                 .Drones
+                .Include(x=> x.Medications)
                 .FirstOrDefaultAsync(x => x.SerialNumber.Equals(request.SerialNumber));
 
             if (drone is null)
                 throw new ArgumentException(
                     "There is no registered drone with the provided serial number");
 
-            return _mapper.Map<IEnumerable<MedicationResponse>>(drone.Medications);
+            return _mapper.Map<List<MedicationResponse>>(drone.Medications);
         }
 
         public async Task<IEnumerable<DroneResponse>> Handle(CheckAvailablesDronesForLoadingRequest request, CancellationToken cancellationToken)
@@ -43,7 +44,7 @@ namespace Drones.Handlers.Queries
                 await
                 _context
                 .Drones
-                .Where(x => x.State != StateLevel.Idle && 
+                .Where(x => x.State == StateLevel.Idle && 
                             x.Medications.Sum(y => y.Weight) < x.WeightLimit &&
                             x.BatteryCapacity >= minBatteryCapacity)
                 .ToListAsync();

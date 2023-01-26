@@ -63,12 +63,12 @@ internal class Program
         {
             q.UseMicrosoftDependencyInjectionScopedJobFactory();
             // Just use the name of your job that you created in the Jobs folder.
-            var jobKey = new JobKey("SendEmailJob");
+            var jobKey = new JobKey("RegisterDroneBatteryLogJob");
             q.AddJob<CreateBatteryLevelLogJob>(opts => opts.WithIdentity(jobKey));
 
             q.AddTrigger(opts => opts
                 .ForJob(jobKey)
-                .WithIdentity("SendEmailJob-trigger")
+                .WithIdentity("RegisterDroneBatteryLogJob-trigger")
                 //This Cron interval can be described as "run every minute" (when second is zero)
                 .WithCronSchedule("0 * * ? * *")
             );

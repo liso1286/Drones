@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Drones.Controllers.Command
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "ADMIN")]
+    //[Authorize(Roles = "ADMIN")]
     [ApiController]
     public class DronesCommandController : Controller
     {
@@ -20,6 +20,14 @@ namespace Drones.Controllers.Command
         [HttpPost("CreateModifyDrone")]
         [ProducesResponseType(typeof(CreateModifyDroneResponse), (int)System.Net.HttpStatusCode.OK)]
         public async Task<IActionResult> CreateModifyDrone([FromBody] CreateModifyDroneRequest request)
+        {
+            var respuesta = await _mediator.Send(request);
+            return Ok(respuesta);
+        }
+
+        [HttpPost("LoadDrone")]
+        [ProducesResponseType(typeof(LoadDroneResponse), (int)System.Net.HttpStatusCode.OK)]
+        public async Task<IActionResult> LoadDrone([FromBody] LoadDroneRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);

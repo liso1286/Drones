@@ -1,22 +1,42 @@
 ﻿using MediatR;
+using static Drones.Entities.Drone;
 
 namespace Drones.Dtos.Command
 {
     public record CreateModifyDroneRequest(
-            int Id,
             string SerialNumber,
             int Model,
-            decimal WeightLimit,
-            decimal BatteryCapacity,
-            int State) : IRequest<CreateModifyDroneResponse>;
+            decimal WeightLimit) : IRequest<CreateModifyDroneResponse>;
 
     public class CreateModifyDroneResponse
     {
         public int Id { get; set; }
-        public string SerialNumber { get; }
-        public int Model { get; }
-        public decimal WeightLimit { get; }
-        public decimal BatteryCapacity { get; }
-        public int State { get; }
+        public string SerialNumber { get; set; }
+        public ModelType Model { get; set; }
+        public decimal WeightLimit { get; set; }
+        public decimal BatteryCapacity { get; set; }
+        public StateLevel State { get; set; }
+    }
+
+    public record LoadDroneRequest(
+         string DroneSerialNumber,
+         string Name,
+         decimal Weight,
+         string Code,
+         string ImagePath) : IRequest<LoadDroneResponse>;
+
+    public class LoadDroneResponse
+    {
+        public string DroneSerialNumber { get; set; }
+        public IEnumerable<MedicationItem> Medications { get; set; }
+    }
+
+    public class MedicationItem
+    {
+        public int Id { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public decimal Weight { get; set; }
+        public byte[] Image { get; set; }
     }
 }
