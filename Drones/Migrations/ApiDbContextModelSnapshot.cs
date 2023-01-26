@@ -86,10 +86,7 @@ namespace Drones.Migrations
 
             modelBuilder.Entity("Drones.Entities.Medication", b =>
                 {
-                    b.HasOne("Drones.Entities.Drone", "Drone")
-                        .WithMany("Medications")
-                        .HasForeignKey("DroneId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Drones.Entities.Drone", "Drone").WithMany("Medications").HasForeignKey("DroneId")
                         .IsRequired();
 
                     b.Navigation("Drone");

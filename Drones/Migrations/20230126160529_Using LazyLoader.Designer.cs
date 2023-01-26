@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Drones.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20230126044406_Add navegation properties")]
-    partial class Addnavegationproperties
+    [Migration("20230126160529_Using LazyLoader")]
+    partial class UsingLazyLoader
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,9 +88,7 @@ namespace Drones.Migrations
 
             modelBuilder.Entity("Drones.Entities.Medication", b =>
                 {
-                    b.HasOne("Drones.Entities.Drone", "Drone")
-                        .WithMany("Medications")
-                        .HasForeignKey("DroneId")
+                    b.HasOne("Drones.Entities.Drone", "Drone").WithMany("Medications").HasForeignKey("DroneId")
                         .IsRequired();
 
                     b.Navigation("Drone");

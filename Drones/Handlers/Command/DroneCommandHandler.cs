@@ -63,16 +63,19 @@ namespace Drones.Handlers.Command
             var drone =
                 await
                 _context
-                .Drones.Include(x=> x.Medications)
+                .Drones
                 .FirstOrDefaultAsync(x => x.SerialNumber.Equals(request.DroneSerialNumber));
 
             if (drone is null)
                 throw new ArgumentException(
                     "There is no registered drone with the provided serial number");
 
-            var medication = new Medication(request.Code, request.Name, request.Weight);
+            drone.CreateAddMedications(
+                request.Code,
+                request.Name,
+                request.Weight,
+                string.Empty);
 
-            drone.Medications.Add(medication);
             drone = _context.Update(drone).Entity;
             await _context.SaveChangesAsync();
             var medicationResponse =

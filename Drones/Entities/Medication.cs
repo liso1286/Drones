@@ -1,11 +1,33 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace Drones.Entities
 {
     public class Medication
     {
+        private ILazyLoader _loader { get; set; }
+
+        protected Medication(ILazyLoader loader)
+        {
+            _loader = loader;
+        }
+
+        private Medication()
+        {
+
+        }
+
+        public Medication(string code, string name, decimal weight)
+        {
+            Code = code;
+            Name = name;
+            Weight = weight;
+            Image = Array.Empty<byte>();
+        }
+
         [Key]
         public int Id { get; set; }
         [NotNull]
@@ -19,19 +41,17 @@ namespace Drones.Entities
 
         [ForeignKey("Drone")]
         public int DroneId { get; set; }
-        public virtual Drone Drone { get; set; }
 
-        private Medication()
+        private Drone _drone;
+        [ForeignKey(nameof(DroneId))]
+        public Drone Drone
         {
-                
-        }
-      
-        public Medication(string code, string name, decimal weight)
-        {
-            Code = code;
-            Name = name;
-            Weight = weight;
-            Image = Array.Empty<byte>();
+            get
+            {
+                _loader.Load(this, ref _drone);
+                return _drone;
+            }
+            set { _drone = value; }
         }
     }
 }

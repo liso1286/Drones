@@ -27,7 +27,6 @@ namespace Drones.Handlers.Queries
                 await
                 _context
                 .Drones
-                .Include(x=> x.Medications)
                 .FirstOrDefaultAsync(x => x.SerialNumber.Equals(request.SerialNumber));
 
             if (drone is null)

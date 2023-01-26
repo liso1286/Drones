@@ -16,8 +16,10 @@ internal class Program
         builder
             .Services
             .AddDbContext<ApiDbContext>
-                (options => options.UseSqlServer(
-                                        builder.Configuration.GetConnectionString("ApiConnection")));
+                (options => options
+                            .UseSqlServer
+                                (builder.Configuration
+                                        .GetConnectionString("ApiConnection")));
 
         // Add services to the container.
         builder

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
@@ -6,6 +7,19 @@ namespace Drones.Entities
 {
     public class Drone
     {
+        private ILazyLoader _loader { get; set; }
+
+        protected Drone(ILazyLoader loader)
+        {
+            _loader = loader;
+        }
+
+        public Drone()
+        {
+            BatteryCapacity = 100.00M;
+            State = StateLevel.Idle;
+        }
+
         [Key]
         public int Id { get; set; }
         [NotNull]
@@ -18,15 +32,31 @@ namespace Drones.Entities
         public decimal BatteryCapacity { get; set; }
         [NotNull]
         public StateLevel State { get; set; }
-        [InverseProperty("Drone")]
-        public virtual ICollection<Medication> Medications { get; set; }
 
-        public Drone()
+        private HashSet<Medication> _medications;
+        [InverseProperty("Drone")]
+        public IEnumerable<Medication> Medications
         {
-            BatteryCapacity = 100.00M;
-            State = StateLevel.Idle;
-            Medications = new List<Medication>();
+            get
+            {
+                _loader.Load(this, ref _medications);
+                return _medications;
+            }
         }
+
+        public Drone CreateAddMedications(
+            string code,
+            string name,
+            decimal weight, 
+            string imagePath)
+        {
+            var medication = new Medication(code, name, weight);
+            if (!Medications.Any())
+                _medications = new HashSet<Medication>();
+            _medications.Add(medication);
+            return this;
+        }
+
 
         public enum StateLevel
         {

@@ -91,7 +91,6 @@ namespace Drones.Migrations
                     b.HasOne("Drones.Entities.Drone", "Drone")
                         .WithMany("Medications")
                         .HasForeignKey("DroneId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Drone");
