@@ -20,6 +20,15 @@ namespace Drones.Entities
             State = StateLevel.Idle;
         }
 
+        public Drone(string serialNumber, ModelType model, decimal weightLimit)
+        {
+            SerialNumber = serialNumber;
+            Model = model;
+            WeightLimit = weightLimit;
+            BatteryCapacity = 100.00M;
+            State = StateLevel.Idle;
+        }
+
         [Key]
         public int Id { get; set; }
         [NotNull]
@@ -47,11 +56,11 @@ namespace Drones.Entities
         public Drone CreateAddMedications(
             string code,
             string name,
-            decimal weight, 
+            decimal weight,
             string imagePath)
         {
             var medication = new Medication(code, name, weight);
-            if (!Medications.Any())
+            if (Medications is null)
                 _medications = new HashSet<Medication>();
             _medications.Add(medication);
             return this;

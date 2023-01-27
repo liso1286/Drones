@@ -32,10 +32,6 @@ namespace Drones.Handlers.Command
 
             drone = _mapper.Map(request, drone);
 
-            if (drone.State != StateLevel.Idle)
-                throw new Exception($"Drone is actually {drone.State}. " +
-                                    $"Only idle drones can be modified");
-
             if (drone.Id < 1)
             {
                 if (_context.Drones.Count() > 9)

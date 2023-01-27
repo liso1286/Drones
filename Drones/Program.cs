@@ -1,25 +1,37 @@
 using Drones;
+using Drones.Entities;
 using Drones.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Quartz;
+using System;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using static Drones.Entities.Drone;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+        //Register Context for connecting to a SQLServer DB
         var builder = WebApplication.CreateBuilder(args);
-        builder
+        /*builder
             .Services
             .AddDbContext<ApiDbContext>
                 (options => options
                             .UseSqlServer
                                 (builder.Configuration
-                                        .GetConnectionString("ApiConnection")));
+                                        .GetConnectionString("ApiConnection")));*/
+        
+        //Register Context to use a In-Memory DB
+        builder
+            .Services
+            .AddDbContext<ApiDbContext>
+                (opt => opt.UseInMemoryDatabase(databaseName: "DroneApiDB"));
 
         // Add services to the container.
         builder
@@ -78,6 +90,20 @@ internal class Program
         builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
         var app = builder.Build();
+
+        #region Configure the preload of data to DB In Memory through DataGenerator
+        // Find the service layer within our scope.
+        using (var scope = app.Services.CreateScope())
+        {
+            // Get the instance of BoardGamesDBContext in our services layer
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<ApiDbContext>();
+
+            // Call the DataGenerator to create sample data
+            DataGenerator.Initialize(services);
+        }
+
+        #endregion
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
