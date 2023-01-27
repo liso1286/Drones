@@ -26,16 +26,16 @@ namespace Drones
                         .CreateAddMedications("M5", "Albendazole", 100.00M, imagePath: string.Empty)
                         .CreateAddMedications("M6", "Amoxicillin", 100.00M, imagePath: string.Empty),
                     new Drone("D3", ModelType.Cruiserweight, 500.00M)
-                        .CreateAddMedications("M4", "Ampicillin", 10.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M5", "Atenolol", 50.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M5", "Diazepam", 20.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M5", "Fluconazole", 20.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M6", "Fluorouracil", 10.00M, imagePath: string.Empty),
+                        .CreateAddMedications("M7", "Ampicillin", 10.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M8", "Atenolol", 50.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M9", "Diazepam", 20.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M10", "Fluconazole", 20.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M11", "Fluorouracil", 10.00M, imagePath: string.Empty),
                     new Drone("D4", ModelType.Lightweight, 200.00M)
-                        .CreateAddMedications("M5", "Ketamine", 30.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M5", "Lidocaine", 30.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M5", "Meloxicam", 30.00M, imagePath: string.Empty)
-                        .CreateAddMedications("M5", "Metformin", 10.00M, imagePath: string.Empty),
+                        .CreateAddMedications("M12", "Ketamine", 30.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M13", "Lidocaine", 30.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M14", "Meloxicam", 30.00M, imagePath: string.Empty)
+                        .CreateAddMedications("M15", "Metformin", 10.00M, imagePath: string.Empty),
                     new Drone("D5", ModelType.Heavyweight, 500.00M),
                     new Drone("D6", ModelType.Heavyweight, 250.00M));
 
