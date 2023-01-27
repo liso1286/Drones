@@ -49,7 +49,11 @@ namespace Drones.Handlers.Command
             drone = _context.Update(drone).Entity;
             await _context.SaveChangesAsync();
 
-            drone.CreateAddMedications(request.Code, request.Name, request.Weight, string.Empty);
+            drone.CreateAddMedications(
+                request.Code,
+                request.Name,
+                request.Weight,
+                request.ImagePath);
 
             drone.State = Drone.StateLevel.Loaded;
             drone = _context.Update(drone).Entity;

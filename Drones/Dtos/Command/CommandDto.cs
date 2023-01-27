@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.Drawing;
 using static Drones.Entities.Drone;
 
 namespace Drones.Dtos.Command

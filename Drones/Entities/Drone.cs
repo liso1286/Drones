@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using Drones.Utilities;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -58,8 +59,8 @@ namespace Drones.Entities
             decimal weight,
             string imagePath)
         {
-
-            var medication = new Medication(code, name, weight, image: null);
+            var image = Utils.LoadImageFromPath(imagePath);
+            var medication = new Medication(code, name, weight, image);
             if (Medications is null)
                 _medications = new HashSet<Medication>();
             _medications.Add(medication);
