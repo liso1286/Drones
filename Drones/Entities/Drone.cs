@@ -14,10 +14,9 @@ namespace Drones.Entities
             _loader = loader;
         }
 
-        public Drone()
+        private Drone()
         {
-            BatteryCapacity = 100.00M;
-            State = StateLevel.Idle;
+
         }
 
         public Drone(string serialNumber, ModelType model, decimal weightLimit)
@@ -59,7 +58,8 @@ namespace Drones.Entities
             decimal weight,
             string imagePath)
         {
-            var medication = new Medication(code, name, weight);
+
+            var medication = new Medication(code, name, weight, image: null);
             if (Medications is null)
                 _medications = new HashSet<Medication>();
             _medications.Add(medication);

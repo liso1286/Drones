@@ -11,10 +11,9 @@ namespace Drones
             using (var context = new ApiDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<ApiDbContext>>()))
             {
-                // Look for any board games.
                 if (context.Drones.Any())
                 {
-                    return;   // Data was already seeded
+                    return; 
                 }
 
                 context.Drones.AddRange(

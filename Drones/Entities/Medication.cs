@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
 
 namespace Drones.Entities
 {
@@ -20,12 +19,12 @@ namespace Drones.Entities
 
         }
 
-        public Medication(string code, string name, decimal weight)
+        public Medication(string code, string name, decimal weight, byte[]? image)
         {
             Code = code;
             Name = name;
             Weight = weight;
-            Image = Array.Empty<byte>();
+            Image = image ?? Array.Empty<byte>();
         }
 
         [Key]

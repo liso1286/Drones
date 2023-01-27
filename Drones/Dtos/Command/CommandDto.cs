@@ -6,7 +6,9 @@ namespace Drones.Dtos.Command
     public record CreateModifyDroneRequest(
             string SerialNumber,
             int Model,
-            decimal WeightLimit) : IRequest<CreateModifyDroneResponse>;
+            decimal WeightLimit,
+            decimal BatteryCapacity,
+            StateLevel State) : IRequest<CreateModifyDroneResponse>;
 
     public class CreateModifyDroneResponse
     {
