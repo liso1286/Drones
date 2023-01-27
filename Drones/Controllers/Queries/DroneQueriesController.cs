@@ -19,25 +19,25 @@ namespace Drones.Controllers.Queries
             _mediator = mediator;
         }
 
-        [HttpGet("CheckMedicationByDrone")]
+        [HttpPost("CheckMedicationByDrone")]
         [ProducesResponseType(typeof(IEnumerable<MedicationResponse>), (int)System.Net.HttpStatusCode.OK)]
-        public async Task<IActionResult> CheckMedicationByDrone([FromQuery] CheckMedicationByDroneRequest request)
+        public async Task<IActionResult> CheckMedicationByDrone([FromBody] CheckMedicationByDroneRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);
         }
 
-        [HttpGet("CheckAvailablesDronesForLoading")]
+        [HttpPost("CheckAvailablesDronesForLoading")]
         [ProducesResponseType(typeof(IEnumerable<DroneResponse>), (int)System.Net.HttpStatusCode.OK)]
-        public async Task<IActionResult> CheckAvailablesDronesForLoading([FromQuery] CheckAvailablesDronesForLoadingRequest request)
+        public async Task<IActionResult> CheckAvailablesDronesForLoading([FromBody] CheckAvailablesDronesForLoadingRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);
         }
 
-        [HttpGet("CheckBatteryLevelForDrone")]
+        [HttpPost("CheckBatteryLevelForDrone")]
         [ProducesResponseType(typeof(CheckBatteryLevelForDroneResponse), (int)System.Net.HttpStatusCode.OK)]
-        public async Task<IActionResult> CheckBatteryLevelForDrone([FromQuery] CheckBatteryLevelForDroneRequest request)
+        public async Task<IActionResult> CheckBatteryLevelForDrone([FromBody] CheckBatteryLevelForDroneRequest request)
         {
             var respuesta = await _mediator.Send(request);
             return Ok(respuesta);
