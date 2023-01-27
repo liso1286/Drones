@@ -25,7 +25,7 @@ namespace Drones.Entities
             SerialNumber = serialNumber;
             Model = model;
             WeightLimit = weightLimit;
-            BatteryCapacity = 100.00M;
+            BatteryCapacity = 1.00M;
             State = StateLevel.Idle;
         }
 
