@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +26,6 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.4.0" />
 	  <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,45 @@
+﻿@page "/fetchdata"
+
+
+
+<PageTitle>Drones datat</PageTitle>
+
+<h1>Drones Data</h1>
+
+<p>This componente fetch data from api server.</p>
+
+@if (drones == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">   
+        <div class="col-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Serial</th>
+                        <th>Model</th>
+                        <th>Weight Limit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var drone in drones)
+                    {
+                        <tr>
+                            <td>@drone.Id</td>
+                            <td>@drone.SerialNumber</td>
+                            <td>@drone.Model</td>
+                            <td>@drone.WeightLimit</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+}
+
+

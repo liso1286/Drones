@@ -1,17 +1,12 @@
 using Drones;
-using Drones.Entities;
 using Drones.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Quartz;
-using System;
 using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using static Drones.Entities.Drone;
 
 internal class Program
 {
@@ -26,7 +21,7 @@ internal class Program
                             .UseSqlServer
                                 (builder.Configuration
                                         .GetConnectionString("ApiConnection")));*/
-        
+
         //Register Context to use a In-Memory DB
         builder
             .Services
@@ -105,11 +100,13 @@ internal class Program
 
         #endregion
 
+        app.UseSwagger();
+        app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "My Web Api"));
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "My Web Api"));
         }
         app.UseCors("AllowedApp");
         app.UseHttpsRedirection();
