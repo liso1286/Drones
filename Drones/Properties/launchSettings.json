@@ -2,8 +2,9 @@
   "profiles": {
     "Drones": {
       "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Usuario\\Source\\Repos\\Drones\\Drones\\bin\\Debug",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -12,17 +13,34 @@
     },
     "IIS Express": {
       "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger/index.html",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "use64Bit": true,
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7101;http://localhost:5101"
+    },
+    "Perfil 1": {
+      "commandName": "IISExpress",
       "workingDirectory": "C:\\inetpub\\drone",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      "launchUrl": "swagger/index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "use64Bit": true
     },
-    "Perfil 1": {
-      "commandName": "IISExpress",
-      "use64Bit": true
+    "WSL": {
+      "commandName": "WSL2",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:7101/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7101;http://localhost:5101"
+      },
+      "distributionName": ""
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",
@@ -31,7 +49,10 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:22923",
-      "sslPort": 44333
+      "sslPort": 44335,
+      "workingDirectory": "C:\\inetpub\\drone",
+      "launchBrowser": true,
+      "launchUrl": "swagger/index.html"
     }
   }
 }

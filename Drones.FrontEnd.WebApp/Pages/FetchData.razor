@@ -1,21 +1,25 @@
 ﻿@page "/fetchdata"
-
-
+@using Drones.FrontEnd.WebApp.ViewModels;
+@using static Drones.FrontEnd.WebApp.ViewModels.DroneMv;
 
 <PageTitle>Drones datat</PageTitle>
 
 <h1>Drones Data</h1>
 
-<p>This componente fetch data from api server.</p>
+<p>This component fetch data from api server.</p>
 
-@if (drones == null)
+@if (dronesDto == null)
 {
-    <p><em>Loading...</em></p>
+    <BSSpinner Color="BSColor.Primary" />
 }
 else
 {
-    <div class="row">   
-        <div class="col-6">
+    @if (loading)
+    {
+        <BSSpinner Color="BSColor.Info" />
+    }
+    <div class="row">
+        <div class="col-5">
             <table class="table">
                 <thead>
                     <tr>
@@ -26,7 +30,7 @@ else
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var drone in drones)
+                    @foreach (var drone in dronesDto)
                     {
                         <tr>
                             <td>@drone.Id</td>
@@ -38,8 +42,59 @@ else
                 </tbody>
             </table>
         </div>
+        <div class="col-7">
+            <BSRow MarginBottom="Margins.Medium">
+                <BSLabel IsColumn="true">Serial Number</BSLabel>
+                <BSCol ColumnMedium="9">
+                    <BSInput InputType="InputType.Text" @bind-Value="@(droneMv.SerialNumber)" UpdateOnInput=true />
+                </BSCol>
+            </BSRow>
+            <BSRow MarginBottom="Margins.Medium">
+                <BSLabel IsColumn="true">Model</BSLabel>
+                <BSCol ColumnSmall="9">
+                    <BSInput InputType="InputType.Select" @bind-Value="@(droneMv.Model)">
+                        <option value="@ModelType.Lightweight">Lightweight</option>
+                        <option value="@ModelType.Middleweight">Middleweight</option>
+                        <option value="@ModelType.Cruiserweight">Cruiserweight</option>
+                        <option value="@ModelType.Heavyweight">Heavyweight</option>
+                    </BSInput>
+                </BSCol>
+            </BSRow>
+            <BSRow MarginBottom="Margins.Medium">
+                <BSLabel IsColumn="true">Weight Limit</BSLabel>
+                <BSCol ColumnSmall="9">
+                    <BSInput InputType="InputType.Number" @bind-Value="@(droneMv.WeightLimit)" />
+                </BSCol>
+            </BSRow>
+            <BSRow MarginBottom="Margins.Medium">
+                <BSLabel IsColumn="true">Battery Capacity</BSLabel>
+                <BSCol ColumnSmall="9">
+                    <BSInput InputType="InputType.Number" @bind-Value="@(droneMv.BatteryCapacity)" />
+                </BSCol>
+            </BSRow>
+            <BSRow MarginBottom="Margins.Medium">
+                <BSLabel IsColumn="true">State</BSLabel>
+                <BSCol ColumnSmall="9">
+                    <BSInput InputType="InputType.Select" @bind-Value="@(droneMv.State)">
+                        <option value="@StateLevel.Idle">Idle</option>
+                        <option value="@StateLevel.Loading">Loading</option>
+                        <option value="@StateLevel.Loaded">Loaded</option>
+                        <option value="@StateLevel.Delivering">Delivering</option>
+                        <option value="@StateLevel.Returning">Returning</option>
+                    </BSInput>
+                </BSCol>
+            </BSRow>
+            <BSRow MarginBottom="Margins.ExtraLarge">
+                <BSCol Column="10" />
+                <BSCol Column="2">
+                    <BSButton Margin="Margins.Default" Color="BSColor.Primary" OnClick="CreateDrone" IsSubmit="false">
+                        Create
+                    </BSButton>
+                </BSCol>
+            </BSRow>
+        </div>
     </div>
-    
+
 }
 
 

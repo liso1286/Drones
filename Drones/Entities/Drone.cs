@@ -17,7 +17,7 @@ namespace Drones.Entities
 
         private Drone()
         {
-
+            Medications = new List<Medication>();
         }
 
         public Drone(string serialNumber, ModelType model, decimal weightLimit)
@@ -27,6 +27,7 @@ namespace Drones.Entities
             WeightLimit = weightLimit;
             BatteryCapacity = 1.00M;
             State = StateLevel.Idle;
+            Medications = new List<Medication>();
         }
 
         [Key]
@@ -51,6 +52,7 @@ namespace Drones.Entities
                 _loader.Load(this, ref _medications);
                 return _medications;
             }
+            set { }
         }
 
         public Drone CreateAddMedications(

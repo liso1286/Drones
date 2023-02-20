@@ -2,7 +2,9 @@ using Drones;
 using Drones.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Quartz;
 using System.Reflection;
@@ -52,8 +54,10 @@ internal class Program
                              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                          });
 
+        
+
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        builder.Services.AddAutoMapper(typeof(Program));
         builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
         builder.Services.AddQuartz(q =>

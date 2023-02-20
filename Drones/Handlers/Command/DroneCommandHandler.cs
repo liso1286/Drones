@@ -84,11 +84,11 @@ namespace Drones.Handlers.Command
                 .FirstOrDefaultAsync(x => x.SerialNumber.Equals(request.SerialNumber)) ??
                 _mapper.Map<Drone>(request);
 
-            var totalWight = drone.Medications.Sum(x => x.Weight);
+            var totalWight = drone.Medications is null ? 0 : drone.Medications.Sum(x => x.Weight);
 
-            if (drone.State == Drone.StateLevel.Loading)
+            if (drone.State == Drone.StateLevel.Loading && totalWight > 0)
                 throw new Exception("Drones while carrying medications cant'n change their parameters");
-            else if (drone.State == Drone.StateLevel.Idle)
+            else if (drone.State == Drone.StateLevel.Idle && totalWight > 0)
                 throw new Exception("To put the drone in available state use the Deactivate service");
             else if (request.WeightLimit < totalWight)
                 throw new Exception("The maximum load capacity must exceed the actual weight");
@@ -117,7 +117,7 @@ namespace Drones.Handlers.Command
 
             var validCode = request.Name.All(x => (Char.IsLetter(x) &&
                                                    Char.IsUpper(x)) ||
-                                             x.Equals('_') || 
+                                             x.Equals('_') ||
                                              Char.IsNumber(x));
             if (!validName)
                 throw new Exception("The name of the medicine can only contain letters, numbers and the characters \"-\" and \"_\"");
