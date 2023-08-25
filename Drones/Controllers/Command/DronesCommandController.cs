@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Drones.Controllers.Command
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     //[Authorize(Roles = "ADMIN")]
     [ApiController]
     public class DronesCommandController : Controller

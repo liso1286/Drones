@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Drones.Controllers.Queries
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     // [Authorize(Roles ="ADMIN,USUARIO")]
     [AllowAnonymous]
     [ApiController]

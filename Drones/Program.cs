@@ -2,9 +2,7 @@ using Drones;
 using Drones.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Quartz;
 using System.Reflection;
@@ -54,7 +52,7 @@ internal class Program
                              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
                          });
 
-        
+
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddAutoMapper(typeof(Program));
@@ -104,14 +102,23 @@ internal class Program
 
         #endregion
 
-        app.UseSwagger();
-        app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "My Web Api"));
-        // Configure the HTTP request pipeline.
+        //app.UseSwagger(x => x.SerializeAsV2 = true);
+        //app.UseSwaggerUI(x =>
+        //{
+        //    //x.SwaggerEndpoint("/swagger/v1/swagger.json", "My Web Api");
+        //    x.SwaggerEndpoint("/DronesApi/swagger/v1/swagger.json", "My Web Api");
+        //});
+
         if (app.Environment.IsDevelopment())
         {
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "My Web Api"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Web Api v1"));
         }
+
+
+        // Configure the HTTP request pipeline.
+       
         app.UseCors("AllowedApp");
         app.UseHttpsRedirection();
 
