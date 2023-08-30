@@ -35,6 +35,18 @@ internal class Program
             .AllowAnyHeader()
             .AllowAnyMethod()));
 
+
+        var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: MyAllowSpecificOrigins,
+                              policy =>
+                              {
+                                  policy.WithOrigins("https://localhost:446",
+                                                     "https://localhost:442");
+                              });
+        });
+
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -86,6 +98,8 @@ internal class Program
         });
         builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
+       
+
         var app = builder.Build();
 
         #region Configure the preload of data to DB In Memory through DataGenerator
@@ -120,10 +134,10 @@ internal class Program
         // Configure the HTTP request pipeline.
        
         app.UseCors("AllowedApp");
+        app.UseCors(MyAllowSpecificOrigins);
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
         app.MapControllers();
 
         app.Run();
