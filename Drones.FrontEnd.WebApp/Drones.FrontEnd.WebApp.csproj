@@ -8,13 +8,10 @@
 
   <ItemGroup>
 	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-	<PackageReference Include="BlazorStrap.V5" Version="5.1.100" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.13" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-    <PackageReference Include="Syncfusion.Blazor.Calendars" Version="20.4.0.51" />
-    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.51" />
   </ItemGroup>
 
   <ItemGroup>

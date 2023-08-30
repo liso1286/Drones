@@ -12,25 +12,25 @@ namespace Drones.FrontEnd.WebApp.Pages
         [Inject] private IDroneDataService _droneDataService { get; set; }
         [Inject] private IMapper _mapper { get; set; }
 
-        private List<DroneDto>? dronesDto;
-        private DroneMv droneMv { get; set; }
-        private bool loading = false;
+        //private List<DroneDto>? dronesDto;
+        //private DroneMv DroneMv { get; set; } = new();
+        //private bool loading = false;
 
-        protected override async Task OnInitializedAsync()
-        {
-            droneMv = new DroneMv();
-            dronesDto = await _droneDataService.GetAvailableDronesAsync();
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+            //droneMv = new DroneMv();
+            //dronesDto = await _droneDataService.GetAvailableDronesAsync();
+        //}
 
-        private async Task CreateDrone()
-        {
-            loading= true;
-            var droneDto = _mapper.Map<DroneDto>(droneMv);
-            var response = await _droneDataService.CreateModifyDroneAsync(droneDto);
-            if (response == HttpStatusCode.OK)
-                dronesDto = await _droneDataService.GetAvailableDronesAsync();
-            StateHasChanged();
-            loading= false;
-        }
+        //private async Task CreateDrone()
+        //{
+        //    loading= true;
+        //    var droneDto = _mapper.Map<DroneDto>(DroneMv);
+        //    var response = await _droneDataService.CreateModifyDroneAsync(droneDto);
+        //    if (response == HttpStatusCode.OK)
+        //        dronesDto = await _droneDataService.GetAvailableDronesAsync();
+        //    StateHasChanged();
+        //    loading= false;
+        //}
     }
 }

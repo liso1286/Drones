@@ -1,7 +1,6 @@
 ﻿using Drones.FrontEnd.WebApp.Dtos;
 using System.Net;
 using System.Net.Http.Json;
-using static Drones.FrontEnd.WebApp.Dtos.DroneDto;
 
 namespace Drones.FrontEnd.WebApp.DataServices
 {
